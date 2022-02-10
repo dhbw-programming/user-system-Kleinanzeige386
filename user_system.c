@@ -13,6 +13,8 @@
 
 typedef int user_id;
 
+
+
 typedef struct Liste{
     user_id id;
     char *name;
@@ -20,19 +22,29 @@ typedef struct Liste{
     struct Liste *next;
 }Liste;
 
-Liste* goToEnd(Liste anfang){
+
+
+
+Liste *start;
+
+Liste* goToEnd(Liste *anfang){
+    Liste *temp=anfang;
+    return temp;
 
 }
 
 void users_initialize_table(int capacity){
     
     if (capacity>0){
-
-        Liste start={.id=0, .next=NULL};
+        
+        start=malloc(sizeof(Liste));
+        start->id=0;
+        start->next=NULL;
+        
     
         for (int i = 1; i < capacity; i++)
         {
-        
+            users_add("NA","NA");
         }
     }
 
@@ -40,7 +52,19 @@ void users_initialize_table(int capacity){
 }
 
 
-user_id users_add(char *name, char *email);
+user_id users_add(char *name, char *email){
+
+    Liste *temp;
+    
+    temp=goToEnd(start);
+    temp->next=malloc(sizeof(Liste));
+    temp->next->name= name;
+    temp->next->eMail= email;
+    temp->next->next=NULL;
+    temp->next->id= temp->id + 1;
+
+    return (temp->next->id);
+}
 
 void users_printall();
 
